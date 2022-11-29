@@ -102,7 +102,7 @@ class MagazineController extends Controller
     public function uploadCover($cover)
     {
         $extFile = $cover->getClientOriginalName();
-        $path = $cover->move('cover', 'file_' . time() . '.' . $extFile);
+        $path = $cover->move('cover', $extFile);
         $path = str_replace('\\', '/', $path);
 
         return $path;
@@ -111,7 +111,7 @@ class MagazineController extends Controller
     public function uploadPdf($pdf)
     {
         $extFile = $pdf->getClientOriginalName();
-        $path = $pdf->move('pdf', 'file_' . time() . '.' . $extFile);
+        $path = $pdf->move('pdf', $extFile);
         $path = str_replace('\\', '/', $path);
 
         return $path;
