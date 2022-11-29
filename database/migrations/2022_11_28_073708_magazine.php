@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Buku extends Migration
+class Magazine extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class Buku extends Migration
      */
     public function up()
     {
-        Schema::create('buku', function (Blueprint $table) {
-            $table->id('id_buku');
-            $table->string('nama_buku');
-            $table->string('nama_pengarang');
+        Schema::create('magazine', function (Blueprint $table) {
+            $table->id('id');
+            $table->string('title');
+            $table->string('cover');
+            $table->text('description');
+            $table->string('pdf_file');
             $table->timestamps();
         });
     }
