@@ -58,17 +58,6 @@ class MagazineController extends Controller
         ]);
     }
 
-    // public function edit($id)
-    // {
-    //     // Fungsi untuk mengambil data galeri sesuai dengan id
-    //     $magazine = MagazineModel::find($id);
-
-    //     return response()->json([
-    //         'status' => true,
-    //         'data' => MagazineResource::collection($magazine)
-    //     ]);
-    // }
-
     public function update(MagazineSaveRequest $request, $id)
     {
         $magazine = MagazineModel::find($id);
@@ -77,6 +66,12 @@ class MagazineController extends Controller
             unlink($magazine->cover);
             $cover = $this->uploadCover($request->cover);
             $magazine->cover = $cover;
+        }
+
+        if (!empty($request->pdf_file)) {
+            unlink($magazine->pdf_file);
+            $pdf = $this->uploadPdf($request->cover);
+            $magazine->pdf_file = $pdf;
         }
 
         $magazine->title = $request->title;
@@ -92,6 +87,20 @@ class MagazineController extends Controller
 
     public function destroy($id)
     {
+        $magazine = MagazineModel::find($id);
+
+        $cover = public_path($magazine->cover);
+
+        $pdf = public_path($magazine->pdf_file);
+
+        if ($cover) {
+            unlink($magazine->cover);
+        }
+
+        if ($pdf) {
+            unlink($magazine->pdf_file);
+        }
+
         MagazineModel::destroy($id);
         return response()->json([
             'status' => true,
