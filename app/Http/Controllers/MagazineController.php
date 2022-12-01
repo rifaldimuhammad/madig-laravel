@@ -70,13 +70,12 @@ class MagazineController extends Controller
 
         if (!empty($request->pdf_file)) {
             unlink($magazine->pdf_file);
-            $pdf = $this->uploadPdf($request->cover);
+            $pdf = $this->uploadPdf($request->pdf_file);
             $magazine->pdf_file = $pdf;
         }
 
         $magazine->title = $request->title;
         $magazine->description = $request->description;
-        $magazine->pdf_file = $request->pdf_file;
         $magazine->save();
 
         return response()->json([

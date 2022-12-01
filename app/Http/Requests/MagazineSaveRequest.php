@@ -25,9 +25,7 @@ class MagazineSaveRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'cover' => 'required',
             'description' => 'required',
-            'pdf_file' => 'required'
         ];
     }
 }
