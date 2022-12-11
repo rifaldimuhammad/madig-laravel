@@ -16,7 +16,7 @@ class MagazineDetail extends Migration
         Schema::create('magazine-detail', function (Blueprint $table) {
             $table->id('id');
             $table->string('magazine_id');
-            $table->text('image_file');
+            $table->text('img_file');
             $table->string('page');
             $table->timestamps();
         });

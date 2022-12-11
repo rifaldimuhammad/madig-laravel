@@ -20,21 +20,8 @@ class MagazineController extends Controller
 
     public function store(MagazineSaveRequest $request)
     {
-
         $cover = $this->uploadCover($request->cover);
         $pdf = $this->uploadPdf($request->pdf_file);
-
-        // $pdf = [];
-        // if ($request->hasFile('pdf_file')) {
-        //     $file = $request->file('pdf_file');
-
-        //     $fileName = $file->getClientOriginalName();
-        //     $path = $file->move('pdf', 'file_' . time() . '.' . $fileName);
-        //     $path = str_replace('\\','/',$path);
-
-        //     $attributes['image'] = $fileName;
-        // }
-
 
         $file = new MagazineModel();
         $file->title = $request->title;
