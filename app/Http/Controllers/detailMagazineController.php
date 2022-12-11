@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\detailMagazineRequest;
 use App\Http\Resources\detailMagazineResource;
 use App\Http\Resources\MagazineResource;
 use App\Models\detailMagazineModel;
@@ -84,9 +85,24 @@ class detailMagazineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(detailMagazineRequest $request, $id)
     {
-        //
+        $magazine = detailMagazineModel::find($id);
+
+        if (!empty($request->img_file)) {
+            unlink($magazine->img_file);
+            $img_file = $this->uploadImgFile($request->img_file);
+            $magazine->img_file = $img_file;
+        }
+
+        $magazine->magazine_id = $request->magazine_id;
+        $magazine->page = $request->page;
+        $magazine->save();
+
+        return response()->json([
+            'status' => true,
+            'messages' => 'Magazine Berhasil Di Ubah'
+        ]);
     }
 
     /**
@@ -97,8 +113,21 @@ class detailMagazineController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $magazine = detailMagazineModel::find($id);
+
+        $cover = public_path($magazine->img_file);
+
+        if ($cover) {
+            unlink($magazine->img_file);
+        }
+
+        detailMagazineModel::destroy($id);
+        return response()->json([
+            'status' => true,
+            'messages' => 'Magazine Berhasil Di Hapus'
+        ]);
     }
+
     public function uploadImgFile($imgFile)
     {
         $extFile = $imgFile->getClientOriginalName();
