@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\bukuController;
+use App\Http\Controllers\detailMagazineController;
 use App\Http\Controllers\MagazineController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,8 +20,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('nama', function () {
-    return 'Namaku, Larashop API';
-});
 Route::apiResource('/buku', BukuController::class);
 Route::apiResource('/magazine', MagazineController::class);
+Route::apiResource('/detail-magazine', detailMagazineController::class);

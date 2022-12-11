@@ -70,13 +70,12 @@ class MagazineController extends Controller
 
         if (!empty($request->pdf_file)) {
             unlink($magazine->pdf_file);
-            $pdf = $this->uploadPdf($request->cover);
+            $pdf = $this->uploadPdf($request->pdf_file);
             $magazine->pdf_file = $pdf;
         }
 
         $magazine->title = $request->title;
         $magazine->description = $request->description;
-        $magazine->pdf_file = $request->pdf_file;
         $magazine->save();
 
         return response()->json([
@@ -112,6 +111,7 @@ class MagazineController extends Controller
     {
         $extFile = $cover->getClientOriginalName();
         $path = $cover->move('cover', $extFile);
+
         $path = str_replace('\\', '/', $path);
 
         return $path;
@@ -120,9 +120,10 @@ class MagazineController extends Controller
     public function uploadPdf($pdf)
     {
         $extFile = $pdf->getClientOriginalName();
-        $path = $pdf->move('pdf', $extFile);
-        $path = str_replace('\\', '/', $path);
+        $path2 = $pdf->move('pdf', $extFile);
 
-        return $path;
+        $path2 = str_replace('\\', '/', $path2);
+
+        return $path2;
     }
 }
