@@ -115,9 +115,9 @@ class detailMagazineController extends Controller
     {
         $magazine = detailMagazineModel::find($id);
 
-        $cover = public_path($magazine->img_file);
+        $imgFile = public_path($magazine->img_file);
 
-        if ($cover) {
+        if ($imgFile) {
             unlink($magazine->img_file);
         }
 
