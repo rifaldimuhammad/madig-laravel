@@ -131,7 +131,7 @@ class detailMagazineController extends Controller
     public function uploadImgFile($imgFile)
     {
         $extFile = $imgFile->getClientOriginalName();
-        $path = $imgFile->move('pages', $extFile);
+        $path = $imgFile->move('pages', date('d-m-y-h:s') . $extFile);
 
         $path = str_replace('\\', '/', $path);
 

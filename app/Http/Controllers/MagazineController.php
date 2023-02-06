@@ -38,7 +38,6 @@ class MagazineController extends Controller
 
     public function show(MagazineModel $magazine)
     {
-
         return response()->json([
             'status' => true,
             'data' => new MagazineResource($magazine)
@@ -107,7 +106,7 @@ class MagazineController extends Controller
     public function uploadPdf($pdf)
     {
         $extFile = $pdf->getClientOriginalName();
-        $path2 = $pdf->move('pdf', $extFile);
+        $path2 = $pdf->move('pdf', date('d-m-y-h:s') . $extFile);
 
         $path2 = str_replace('\\', '/', $path2);
 
